@@ -175,8 +175,8 @@
 			{
 				if((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD)))
 				{
-					selectedText = getSelection();
 					try {
+                        selectedText = getSelection();
                         createForm();
                     } catch(e) {}
 
