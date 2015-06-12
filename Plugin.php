@@ -16,10 +16,30 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'frontend-spelling',
-            'description' => 'No description provided yet...',
+            'name'        => 'frontendspelling',
+            'description' => 'Response spelling from users',
             'author'      => 'haegemon',
-            'icon'        => 'icon-leaf'
+            'icon'        => 'icon-envelope-square'
+        ];
+    }
+
+    public function registerNavigation()
+    {
+        return [
+            'catalog' => [
+                'label'       => 'Spelling requests',
+                'url'         => \Backend::url('haegemon/spelling/fronted'),
+                'icon'        => 'icon-envelope-square',
+                'order'       => 500,
+                'sideMenu' => [
+                    'spelling' => [
+                        'label'       => 'Spelling requests',
+                        'icon'        => 'icon-list-alt',
+                        'url'         => \Backend::url('haegemon/spelling/fronted'),
+                    ],
+                ]
+
+            ]
         ];
     }
 
