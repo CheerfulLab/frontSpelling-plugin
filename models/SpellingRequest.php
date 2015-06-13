@@ -8,6 +8,8 @@ use Model;
 class SpellingRequest extends Model
 {
 
+    const SpellingRequestStatusNew = 0;
+    const SpellingRequestStatusProceed = 1;
     /**
      * @var string The database table used by the model.
      */
@@ -16,12 +18,12 @@ class SpellingRequest extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = ['id', 'status'];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = ['text', 'comment', 'url'];
 
     /**
      * @var array Relations

@@ -28,14 +28,14 @@ class Plugin extends PluginBase
         return [
             'catalog' => [
                 'label'       => 'Spelling requests',
-                'url'         => \Backend::url('haegemon/spelling/fronted'),
+                'url' => \Backend::url('haegemon/frontendspelling/spellingrequests'),
                 'icon'        => 'icon-envelope-square',
                 'order'       => 500,
                 'sideMenu' => [
                     'spelling' => [
                         'label'       => 'Spelling requests',
                         'icon'        => 'icon-list-alt',
-                        'url'         => \Backend::url('haegemon/spelling/fronted'),
+                        'url' => \Backend::url('haegemon/frontendspelling/spellingrequests'),
                     ],
                 ]
 

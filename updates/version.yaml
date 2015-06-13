@@ -1,1 +1,4 @@
 1.0.1: First version of frontendspelling
+1.0.2:
+      - Create base backend part
+      - create_spelling_requests_table.php

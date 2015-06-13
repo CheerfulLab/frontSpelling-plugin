@@ -6,3 +6,21 @@ fields:
     id:
         label: ID
         disabled: true
+    url:
+        label: Page url
+        disabled: false
+    text:
+        label: Page part
+        disabled: false
+        type: textarea
+    comment:
+        label: Comment
+        disabled: false
+        type: textarea
+    status:
+        label: Status
+        disabled: false
+        type: dropdown
+        options:
+            0: New
+            1: Processed

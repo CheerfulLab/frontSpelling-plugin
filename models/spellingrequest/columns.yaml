@@ -6,3 +6,18 @@ columns:
     id:
         label: ID
         searchable: true
+    url:
+        label: Page url
+        searchable: false
+    text:
+        label: Page part
+        searchable: true
+    comment:
+        label: Comment
+        searchable: false
+    status:
+        label: Status
+        searchable: false
+    created_at:
+        label: Added at
+        searchable: false
