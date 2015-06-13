@@ -1,0 +1,92 @@
+<div id="spelling" style="display:none;"></div>
+<script>
+    /**
+     * Inspired by jQuery.Bukvus: Nazar Tokar
+     * @type {{getSelection: Function}}
+     */
+    var spelling = {
+        'getSelection': function () {
+            var selection = "";
+            if (window.getSelection) {
+                selection = window.getSelection().toString();
+            } else if (document.selection && document.selection.type != "Control") {
+                selection = document.selection.createRange().text;
+            }
+            return selection;
+        }
+    }
+
+    // автор JS - jQuery.Bukvus: Nazar Tokar, 2013
+    jQuery('<div>', {id: 'RERR', style: 'display:none;'}).prependTo('html');
+
+    function RERR() {
+        // :))))
+        RERR_se(RERR_gs());
+    }
+
+    function RERR_gs() { // get selection
+        var t = "";
+        if (window.getSelection) {
+            t = window.getSelection().toString();
+        } else if (document.selection && document.selection.type != "Control") {
+            t = document.selection.createRange().text;
+        }
+        return t;
+    }
+
+    function RERR_sm(m) { // show message
+        button = "<br><br><input style='padding: 10px 20px 10px 20px;border-radius: 10px;' type='button' onclick='jQuery(\"#RERR\").hide();' value='<?php echo __('Ok','RERR')?>'>"
+        jQuery("#RERR").show();
+        jQuery("#RERR").html("<br><font style='font-size:14pt;'>" + m + "</font>" + button);
+
+        //alert(m);
+    }
+
+    function RERR_se(t) { // send error
+        if (t.length < 4) {
+            RERR_sm("<?php echo __('Please, select inaccuracy or typo for letting us know.','RERR').'<br><br>'.__('Thanks!','RERR'); ?>");
+        } else if (t.length > 2000) {
+            RERR_sm("<?php echo __('Too much text, choose less!','RERR'); ?>");
+        } else {
+
+            message = "<b><?php _e('Thanks! You selected:','RERR'); ?></b><div style='overflow:auto;width:100%;height:50px;margin-bottom:4px!important;padding-left:2px;padding-right:2px;'><font style='font-size:10pt;'><span id='rerr_selected'>" + t + "</span></font></div><b><?php _e('Your Comment:','RERR'); ?></b><br><textarea style='height:40px!important;' id='rerr_message'></textarea><br><nobr><input type='button' value='<?php _e('Submit','RERR'); ?>' onclick='post_error();'>&nbsp;<input type='button' value='<?php _e('Cancel','RERR'); ?>' onclick='jQuery(\"#RERR\").hide();'></nobr>";
+
+            jQuery("#RERR").show();
+            jQuery("#RERR").html(message);
+
+        }
+    }
+
+    function post_error() {
+
+        jQuery("#RERR").hide();
+
+
+        jQuery.post("<?php echo get_home_url(); ?>?RERR=send", {
+                    err: jQuery("#rerr_message").val(),
+                    url: location.href,
+                    txt: jQuery("#rerr_selected").text()
+                },
+                function (data) {
+                    if (data.result == "ok") {
+                        RERR_sm(data.message);
+                    } else {
+                        RERR_sm(data.error);
+                    }
+                }, "json");
+
+
+    }
+
+
+    jQuery(document).keydown(function (e) {
+        if (e.keyCode == 13 && e.ctrlKey) { // отправка
+            if (jQuery('#RERR').is(':visible')) {
+                jQuery("#RERR").hide();
+                jQuery("#RERR").html('');
+            }
+            RERR();
+        }
+    });
+
+</script>

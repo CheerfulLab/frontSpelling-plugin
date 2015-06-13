@@ -43,4 +43,11 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerComponents()
+    {
+        return [
+            'haegemon\frontendspelling\components\Frontendspelling' => 'frontendspelling'
+        ];
+    }
+
 }
