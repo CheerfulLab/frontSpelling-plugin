@@ -8,10 +8,10 @@ fields:
         disabled: true
     url:
         label: Page url
-        disabled: false
+        disabled: true
     text:
         label: Page part
-        disabled: false
+        disabled: true
         type: textarea
     comment:
         label: Comment

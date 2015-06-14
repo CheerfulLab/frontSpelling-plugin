@@ -6,6 +6,7 @@ columns:
     id:
         label: ID
         searchable: true
+        width: 5%
     url:
         label: Page url
         searchable: false
@@ -18,6 +19,9 @@ columns:
     status:
         label: Status
         searchable: false
+        type: partial
+        path: ~/plugins/haegemon/frontendspelling/controllers/spellingrequests/_status_column.htm
     created_at:
         label: Added at
         searchable: false
+        width: 10%
