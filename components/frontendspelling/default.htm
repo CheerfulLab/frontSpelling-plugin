@@ -76,8 +76,7 @@
 <script>
 ;(function()
 	{
-		var selectedText = '',
-			comment = '',
+        var comment = '',
 			isForm = false;
 
 		function getSelection()
@@ -124,13 +123,13 @@
 					e.preventDefault();
 					var json = {
                         url : encodeURIComponent(window.location.href),
-                        text : encodeURIComponent(selectedText),
+                                text: encodeURIComponent(getSelection()),
                         comment : encodeURIComponent(comment)
                     },
                     xhr = new XMLHttpRequest();
 
 
-					xhr.open('POST', '/backend/heagemon/frontendspelling/spellingrequests/ajaxcreate;', true);
+                    xhr.open('POST', '/backend/haegemon/frontendspelling/spellingrequests/create_ajax', true);
 					xhr.setRequestHeader('Content-Type', 'application/json');
 
 					xhr.send(JSON.stringify({textError : json}));
@@ -152,7 +151,7 @@
 			);
 
 			text.classList.add('tes__selected-text');
-			text.innerText = selectedText;
+            text.innerText = getSelection();
 
 			submit.type = 'submit';
 			submit.classList.add('tes__submit');
@@ -176,7 +175,6 @@
 				if((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD)))
 				{
 					try {
-                        selectedText = getSelection();
                         createForm();
                     } catch(e) {}
 

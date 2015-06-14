@@ -20,7 +20,7 @@ class SpellingRequests extends Controller
     public $formConfig = 'config_form.yaml';
     public $listConfig = 'config_list.yaml';
 
-    public $publicActions = ['ajaxcreate'];
+    public $publicActions = ['create_ajax'];
 
     public function __construct()
     {
@@ -34,13 +34,17 @@ class SpellingRequests extends Controller
      * Get post
      * @return mixed json
      */
-    public function ajaxcreate()
+    public function create_ajax()
     {
         try {
             if (Request::isMethod('post')) {
-                $url = Request::input('url');
-                $text = Request::input('text');
-                $comment = Request::input('comment');
+                $textError = Request::input('textError');
+                if (!$textError) {
+                    throw new Exception('Not get mandatory parameter textError');
+                }
+                $url = urldecode($textError['url']);
+                $text = urldecode($textError['text']);
+                $comment = urldecode($textError['comment']);
                 if (!$url) {
                     throw new Exception('Not get mandatory parameter url');
                 }
@@ -54,7 +58,6 @@ class SpellingRequests extends Controller
                 $newRequest->text = $text;
                 $newRequest->comment = $comment;
                 $newRequest->save();
-                //
             } else {
                 throw new Exception('Wrong method');
             }
