@@ -1,81 +1,14 @@
+la-la-la-la
 <meta charset="utf-8" />
-<style>
-
-	.tes__container {
-		font-family: Arial, Helvetica;
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0,0,0,.75);
-		z-index: 99998;
-	}
-	.tes__title {
-		font-weight: bold;
-		font-size: 14px;
-		color: #589800;
-		position: absolute;
-		top: 10px;
-		left: 20px;
-		padding: 0;
-		margin: 0;
-	}
-    .tes__title:after {
-		  content: '';
-		  height: 1px;
-		  background: #589800;
-		  top: 24px;
-		  left: -20px;
-		  width: 540px;
-		  position: absolute;
-	}
-	.tes__form {
-		position: absolute;
-		width: 500px;
-		padding: 40px 20px 10px;
-		left: 50%;
-		margin: 0 0 0 -270px;
-		top: 10%;
-		z-index: 99999;
-		background: #fff;
-		border: 1px solid #589800;
-	}
-	.tes__selected-text {
-		font-style: italic;
-		padding: 0;
-		margin: 0;
-	}
-	.tes__close {
-		position: absolute;
-		top: -5px;
-		right: 16px;
-		cursor: pointer;
-		transform: rotate(45deg);
-		font-size: 40px;
-		color: #589800;
-	}
-	.tes__close:hover {
-		color: #007F16;
-	}
-	.tes__submit {
-		float: right;
-		cursor: pointer;
-		border: none;
-		background: #589800;
-		color: #fff;
-		padding: 5px 10px;
-	}
-	.tes__submit:hover {
-		background: #007F16;
-	}
-</style>
-
+<link rel="stylesheet" href="style.css" />
 <script>
 ;(function()
 	{
+		var tesLang = {
+			title : <?= echo Lang::get('frontSpelling::lang.app.modalTitle'); ?>,
+			submit : <?= echo Lang::get('frontSpelling::lang.app.modalSubmit'); ?>
+		};		
+	
         var comment = '',
 			isForm = false;
 
@@ -103,13 +36,14 @@
 				form = document.createElement('form'),
 				text = document.createElement('p'),
 				submit = document.createElement('input'),
-				close = document.createElement('span');
+				close = document.createElement('span'),
+				successMessage = document.createElement('p');
 
 			container.classList.add('tes__container');
 			container.id = 'tes-container';
 
 			title.classList.add('tes__title');
-			title.innerText = 'Отправить текст с ошибкой';
+			title.innerText = tesLang.title;
 
 			form.classList.add('tes__form');
 			form.action = '';
@@ -129,7 +63,7 @@
                     xhr = new XMLHttpRequest();
 
 
-                    xhr.open('POST', '/backend/haegemon/frontendspelling/spellingrequests/create_ajax', true);
+                    xhr.open('POST', 'http://www.filltext.com?rows=10&f={firstName}', true);
 					xhr.setRequestHeader('Content-Type', 'application/json');
 
 					xhr.send(JSON.stringify({textError : json}));
@@ -143,7 +77,17 @@
 							console.log(xhr.status + ': ' + xhr.statusText);
 						} else
 						{
-                            console.log(xhr.responseText);
+							var data = JSON.parse(xhr.responseText)[0];
+							if( data.status )
+							{
+								successMessage.classList.add('tes__success-message');
+								successMessage.innerText = data.message;
+								form.removeChild(text);
+								form.appendChild(successMessage);
+							} else 
+							{
+								throw new Error(data.message);
+							}
 						}
 
 					}
@@ -155,6 +99,7 @@
 
 			submit.type = 'submit';
 			submit.classList.add('tes__submit');
+			submit.value = tesLang.submit;
 
 			close.classList.add('tes__close');
 			close.innerText = '+';
