@@ -1,10 +1,10 @@
-<?php namespace Haegemon\Frontendspelling\Controllers;
+<?php namespace CheerfulLab\Frontendspelling\Controllers;
 
 use BackendMenu;
 use Request;
 use Response;
 use Backend\Classes\Controller;
-use Haegemon\Frontendspelling\Models\SpellingRequest;
+use CheerfulLab\Frontendspelling\Models\SpellingRequest;
 use League\Flysystem\Exception;
 
 /**
@@ -26,7 +26,7 @@ class SpellingRequests extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Haegemon.Frontendspelling', 'frontendspelling', 'spellingrequests');
+        BackendMenu::setContext('CheerfulLab.Frontendspelling', 'frontendspelling', 'spellingrequests');
     }
 
     /**

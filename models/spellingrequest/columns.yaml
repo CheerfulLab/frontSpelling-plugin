@@ -20,7 +20,7 @@ columns:
         label: Status
         searchable: false
         type: partial
-        path: ~/plugins/haegemon/frontendspelling/controllers/spellingrequests/_status_column.htm
+        path: ~/plugins/cheerfullab/frontendspelling/controllers/spellingrequests/_status_column.htm
     created_at:
         label: Added at
         searchable: false

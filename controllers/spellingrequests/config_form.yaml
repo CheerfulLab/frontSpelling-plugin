@@ -6,25 +6,25 @@
 name: Spelling Request
 
 # Model Form Field configuration
-form: $/haegemon/frontendspelling/models/spellingrequest/fields.yaml
+form: $/cheerfulcab/frontendspelling/models/spellingrequest/fields.yaml
 
 # Model Class name
-modelClass: Haegemon\Frontendspelling\Models\SpellingRequest
+modelClass: CheerfulLab\Frontendspelling\Models\SpellingRequest
 
 # Default redirect location
-defaultRedirect: haegemon/frontendspelling/spellingrequests
+defaultRedirect: cheerfulcab/frontendspelling/spellingrequests
 
 # Create page
 create:
     title: Create Spelling Request
-    redirect: haegemon/frontendspelling/spellingrequests/update/:id
-    redirectClose: haegemon/frontendspelling/spellingrequests
+    redirect: cheerfullab/frontendspelling/spellingrequests/update/:id
+    redirectClose: cheerfullab/frontendspelling/spellingrequests
 
 # Update page
 update:
     title: Edit Spelling Request
-    redirect: haegemon/frontendspelling/spellingrequests
-    redirectClose: haegemon/frontendspelling/spellingrequests
+    redirect: cheerfullab/frontendspelling/spellingrequests
+    redirectClose: cheerfullab/frontendspelling/spellingrequests
 
 # Preview page
 preview:

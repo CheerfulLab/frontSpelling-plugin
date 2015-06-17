@@ -1,4 +1,4 @@
-<?php namespace Haegemon\Frontendspelling\Models;
+<?php namespace CheerfulLab\Frontendspelling\Models;
 
 use Model;
 
@@ -13,7 +13,7 @@ class SpellingRequest extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'haegemon_frontendspelling_spelling_requests';
+    public $table = 'cheerfullab_frontendspelling_spelling_requests';
 
     /**
      * @var array Guarded fields

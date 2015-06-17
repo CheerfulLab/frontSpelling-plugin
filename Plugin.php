@@ -1,4 +1,5 @@
-<?php namespace Haegemon\FrontendSpelling;
+<?php
+namespace CheerfulLab\FrontendSpelling;
 
 use System\Classes\PluginBase;
 
@@ -18,7 +19,7 @@ class Plugin extends PluginBase
         return [
             'name'        => 'frontendspelling',
             'description' => 'Response spelling from users',
-            'author'      => 'haegemon',
+            'author'      => 'CheerfulLab',
             'icon'        => 'icon-envelope-square'
         ];
     }
@@ -28,14 +29,14 @@ class Plugin extends PluginBase
         return [
             'catalog' => [
                 'label'       => 'Spelling requests',
-                'url' => \Backend::url('haegemon/frontendspelling/spellingrequests'),
+                'url' => \Backend::url('cheerfullab/frontendspelling/spellingrequests'),
                 'icon'        => 'icon-envelope-square',
                 'order'       => 500,
                 'sideMenu' => [
                     'spelling' => [
                         'label'       => 'Spelling requests',
                         'icon'        => 'icon-list-alt',
-                        'url' => \Backend::url('haegemon/frontendspelling/spellingrequests'),
+                        'url' => \Backend::url('cheerfullab/frontendspelling/spellingrequests'),
                     ],
                 ]
 
@@ -46,7 +47,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'haegemon\frontendspelling\components\Frontendspelling' => 'frontendspelling'
+            'CheerfulLab\frontendspelling\components\Frontendspelling' => 'frontendspellings'
         ];
     }
 

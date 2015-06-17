@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/haegemon/frontendspelling/models/spellingrequest/columns.yaml
+list: $/cheerfullab/frontendspelling/models/spellingrequest/columns.yaml
 
 # Model Class name
-modelClass: Haegemon\Frontendspelling\Models\SpellingRequest
+modelClass: CheerfulLab\Frontendspelling\Models\SpellingRequest
 
 # List Title
 title: Manage Spelling Requests
 
 # Link URL for each record
-recordUrl: haegemon/frontendspelling/spellingrequests/update/:id
+recordUrl: cheerfullab/frontendspelling/spellingrequests/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
