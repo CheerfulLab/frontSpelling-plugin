@@ -8,10 +8,10 @@ Plugin can be add at page any page by
 {% component 'frontendspelling' %} 
 
 After include at page available send data by key pressed ctrl+enter:
-![Popup](/CheerfulLab-plugin/frontSpelling/blob/master/docs/images/frontend.jpg?raw=true)
+![Popup](/docs/images/frontend.jpg?raw=true)
 
 At admin panel all user response will be stay at
-![Administrator panel](/CheerfulLab-plugin/frontSpelling/blob/master/docs/images/backend.jpg?raw=true)
+![Administrator panel](/docs/images/backend.jpg?raw=true)
 
 ## For developer
 Protocol interaction with background describe [here](https://github.com/CheerfulLab-plugin/frontSpelling/blob/master/docs/Transfer.md)
