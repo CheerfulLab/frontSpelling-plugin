@@ -2,8 +2,8 @@
 ;(function()
     {
         var tesLang = {
-            title: 'Текст с ошибкой',
-            submit: 'Отправить'
+            title: '{{ popupTitle }}',
+            submit: '{{ buttonTitle }}'
         };
 
     var comment = '',
@@ -12,9 +12,14 @@
     function getSelection()
     {
         var selection = '';
-
+        /**
+         * For Modern browsers
+         */
         if (window.getSelection)
             selection = window.getSelection().toString();
+        /**
+         * For IE 8 and less
+         */
         else if (document.selection && document.selection.type != 'Control')
             selection = document.selection.createRange().text;
 
@@ -49,45 +54,39 @@
         form.appendChild(text);
         form.appendChild(submit);
         form.appendChild(close);
-        form.addEventListener('submit', function(e)
-                {
+        form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     var json = {
-                                url : encodeURIComponent(window.location.href),
+                                url: encodeURIComponent(window.location.href),
                                 text: encodeURIComponent(getSelection()),
-                                comment : encodeURIComponent(comment)
+                                comment: encodeURIComponent(comment)
                             },
                             xhr = new XMLHttpRequest();
 
-
                     xhr.open('POST', '/backend/cheerfullab/frontendspelling/spellingrequests/create_ajax', true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({textError: json}));
 
-                    xhr.send(JSON.stringify({textError : json}));
-
-                    xhr.onreadystatechange = function()
-                    {
+                    xhr.onreadystatechange = function () {
                         if (xhr.readyState != 4) return;
 
                         if (xhr.status != 200)
+                    {
+                        console.log(xhr.status + ': ' + xhr.statusText);
+                    } else {
+                            var data = JSON.parse(xhr.responseText)[0];
+                            if (data.status)
                         {
-                            console.log(xhr.status + ': ' + xhr.statusText);
+                            successMessage.classList.add('tes__success-message');
+                            successMessage.innerText = data.message;
+                            form.removeChild(text);
+                            form.appendChild(successMessage);
                         } else
                         {
-                            var data = JSON.parse(xhr.responseText)[0];
-                            if( data.status )
-                            {
-                                successMessage.classList.add('tes__success-message');
-                                successMessage.innerText = data.message;
-                                form.removeChild(text);
-                                form.appendChild(successMessage);
-                            } else
-                            {
-                                throw new Error(data.message);
-                            }
+                            throw new Error(data.message);
                         }
-
                     }
+                }
                 }
         );
 
@@ -100,8 +99,12 @@
 
         close.classList.add('tes__close');
         close.innerText = '+';
-        close.addEventListener('click', function()
-                {
+        close.addEventListener('click', function() {
+                    container.parentNode.removeChild(container);
+                    isForm = false;
+                }
+        );
+        container.addEventListener('click', function () {
                     container.parentNode.removeChild(container);
                     isForm = false;
                 }
@@ -112,15 +115,15 @@
         isForm = true;
     }
 
-    document.addEventListener('keypress', function()
+    document.addEventListener('keypress', function() {
+                if ((event.ctrlKey) && ((event.keyCode == 0xA) || (event.keyCode == 0xD)))
             {
-                if((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD)))
-                {
-                    try {
-                        createForm();
-                    } catch(e) {}
-
+                try {
+                    createForm();
+                } catch (e) {
                 }
+
+            }
             }
     );
     }

@@ -15,7 +15,26 @@ class Frontendspelling extends ComponentBase
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'popupTitle' => [
+                'title' => 'Title of popup',
+                'description' => '',
+                'default' => 'Text with mistake',
+                'type' => 'string',
+            ],
+            'buttonTitle' => [
+                'title' => 'Label of button',
+                'description' => '',
+                'default' => 'Submit',
+                'type' => 'string',
+            ]
+        ];
+    }
+
+    public function onRender()
+    {
+        $this->page['popupTitle'] = $this->property('popupTitle');
+        $this->page['buttonTitle'] = $this->property('buttonTitle');
     }
 
 }

@@ -7,13 +7,12 @@ use Model;
  */
 class SpellingRequest extends Model
 {
-
     const SpellingRequestStatusNew = 0;
     const SpellingRequestStatusProceed = 1;
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cheerfullab_frontendspelling_spelling_requests';
+    public $table = 'cheerfullab_frontendspelling_requests';
 
     /**
      * @var array Guarded fields
