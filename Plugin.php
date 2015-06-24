@@ -17,7 +17,7 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'frontendspelling',
+            'name' => 'Frontend Spelling',
             'description' => 'Response spelling from users',
             'author'      => 'CheerfulLab',
             'icon'        => 'icon-envelope-square'
