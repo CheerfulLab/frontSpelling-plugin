@@ -1,6 +1,7 @@
 <?php
 namespace CheerfulLab\FrontendSpelling;
 
+use Backend;
 use System\Classes\PluginBase;
 
 /**
@@ -19,24 +20,24 @@ class Plugin extends PluginBase
         return [
             'name' => 'Frontend Spelling',
             'description' => 'Response spelling from users',
-            'author'      => 'CheerfulLab',
-            'icon'        => 'icon-envelope-square'
+            'author' => 'Pawel Samusev, Yuri Kostin',
+            'icon' => 'icon-envelope-square',
         ];
     }
 
     public function registerNavigation()
     {
         return [
-            'catalog' => [
+            'spelling' => [
                 'label'       => 'Spelling requests',
-                'url' => \Backend::url('cheerfullab/frontendspelling/spellingrequests'),
+                'url' => Backend::url('cheerfullab/frontendspelling/spellingrequests'),
                 'icon'        => 'icon-envelope-square',
                 'order'       => 500,
                 'sideMenu' => [
-                    'spelling' => [
+                    'requests' => [
                         'label'       => 'Spelling requests',
-                        'icon'        => 'icon-list-alt',
-                        'url' => \Backend::url('cheerfullab/frontendspelling/spellingrequests'),
+                        'icon' => 'icon-envelope-square',
+                        'url' => Backend::url('cheerfullab/frontendspelling/spellingrequests'),
                     ],
                 ]
 
