@@ -26,7 +26,7 @@ class SpellingRequests extends Controller
     {
         parent::__construct();
 //        BackendMenu::setContext('CheerfulLab.Frontendspelling', 'frontendspelling', 'spellingrequests');
-        BackendMenu::setContext('CheerfulLab.FrontendSpelling', 'spelling');
+        BackendMenu::setContext('CheerfulLab.FrontendSpelling', 'spelling', 'requests');
 //        BackendMenu::setContext('RainLab.Blog', 'blog', 'posts');
     }
 
