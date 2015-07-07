@@ -63,11 +63,11 @@ class SpellingRequests extends Controller
                 throw new Exception('Wrong method');
             }
             return Response::json(array(
-                'success' => true,
+                'status' => true,
             ));
         } catch (Exception $e) {
             return Response::json(array(
-                'success' => false,
+                'status' => false,
                 'data' => $e->getMessage()
             ));
         }
