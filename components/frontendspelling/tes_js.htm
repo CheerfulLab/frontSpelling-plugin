@@ -1,13 +1,13 @@
 <script>
 ;(function()
-    {
-        var tesLang = {
-            title: '{{ popupTitle }}',
-            submit: '{{ buttonTitle }}'
-        };
+{
+    var tesLang = {
+        title: '{{ popupTitle }}',
+        submit: '{{ buttonTitle }}'
+    };
 
     var comment = '',
-            isForm = false;
+        isForm = false;
 
     function getSelection()
     {
@@ -34,12 +34,12 @@
         if( isForm ) return false;
 
         var container = document.createElement('div'),
-                title = document.createElement('p'),
-                form = document.createElement('form'),
-                text = document.createElement('p'),
-                submit = document.createElement('input'),
-                close = document.createElement('span'),
-                successMessage = document.createElement('p');
+            title = document.createElement('p'),
+            form = document.createElement('form'),
+            text = document.createElement('p'),
+            submit = document.createElement('input'),
+            close = document.createElement('span'),
+            successMessage = document.createElement('p');
 
         container.classList.add('tes__container');
         container.id = 'tes-container';
@@ -50,36 +50,39 @@
         form.classList.add('tes__form');
         form.action = '';
         form.method = 'POST';
-        form.appendChild(title);
-        form.appendChild(text);
-        form.appendChild(submit);
-        form.appendChild(close);
-        form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    var json = {
-                                url: encodeURIComponent(window.location.href),
-                                text: encodeURIComponent(getSelection()),
-                                comment: encodeURIComponent(comment)
-                            },
-                            xhr = new XMLHttpRequest();
 
-                    xhr.open('POST', '/backend/cheerfullab/frontendspelling/spellingrequests/create_ajax', true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(JSON.stringify({textError: json}));
+        [title, text, submit, close].forEach(function(item){ form.appendChild(item); });
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState != 4) return;
+        form.addEventListener('submit', function(e)
+            {
+                e.preventDefault();
+                var json = {
+                    url: encodeURIComponent(window.location.href),
+                    text: encodeURIComponent(getSelection()),
+                    comment: encodeURIComponent(comment)
+                },
+                xhr = new XMLHttpRequest();
 
-                        if (xhr.status != 200)
+                xhr.open('POST', '/backend/cheerfullab/frontendspelling/spellingrequests/create_ajax', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({textError: json}));
+
+                xhr.onreadystatechange = function ()
+                {
+                    if (xhr.readyState != 4) return;
+
+                    if (xhr.status != 200)
                     {
                         console.log(xhr.status + ': ' + xhr.statusText);
-                    } else {
-                            var data = JSON.parse(xhr.responseText)[0];
-                            if (data.status)
+                    } else
+                    {
+                        var data = JSON.parse(xhr.responseText);
+
+                        if (data.status)
                         {
                             successMessage.classList.add('tes__success-message');
-                            successMessage.innerText = data.message;
-                            form.removeChild(text);
+                            successMessage.innerText = data.message || 'Success';
+                            [text, submit].forEach(function(item){ form.removeChild(item); });
                             form.appendChild(successMessage);
                         } else
                         {
@@ -87,7 +90,7 @@
                         }
                     }
                 }
-                }
+            }
         );
 
         text.classList.add('tes__selected-text');
@@ -99,15 +102,21 @@
 
         close.classList.add('tes__close');
         close.innerText = '+';
-        close.addEventListener('click', function() {
-                    container.parentNode.removeChild(container);
-                    isForm = false;
-                }
+        close.addEventListener('click', function()
+            {
+                container.parentNode.removeChild(container);
+                isForm = false;
+            }
         );
-        container.addEventListener('click', function () {
+        container.addEventListener('click', function (e)
+            {
+                e.stopPropagation();
+                if( e.target === container )
+                {
                     container.parentNode.removeChild(container);
                     isForm = false;
                 }
+            }
         );
 
         container.appendChild(form);
@@ -115,17 +124,16 @@
         isForm = true;
     }
 
-    document.addEventListener('keypress', function() {
-                if ((event.ctrlKey) && ((event.keyCode == 0xA) || (event.keyCode == 0xD)))
+    document.addEventListener('keypress', function()
+        {
+            if ((event.ctrlKey) && ((event.keyCode == 0xA) || (event.keyCode == 0xD)))
             {
                 try {
                     createForm();
-                } catch (e) {
-                }
-
+                } catch (e) {}
             }
-            }
+        }
     );
-    }
+}
 )();
 </script>
