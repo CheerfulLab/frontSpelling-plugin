@@ -1,13 +1,29 @@
+<script type="text/template" id="tes-modal-template">
+    <div class="tes__container tes__container_hidden" id="tes-container">
+        <form class="tes__form" action="#" method="POST">
+            <p class="tes__title">
+                {{ popupTitle }}
+            </p>
+            <p class="tes__selected-text tes__remove-after-success-submit">
+                {text}
+            </p>
+            <p class="tes__success-message tes__success-message_empty"></p>
+            <label for="tes__comment" class="tes__comment-container tes__remove-after-success-submit">
+                {{ leaveComment }}
+            </label>
+            <input id="tes__comment" class="tes__comment tes__remove-after-success-submit" type="text" placeholder="{{ leaveComment }}"/>
+            <input type="submit" value="{{ buttonTitle }}" class="tes__submit tes__remove-after-success-submit"/>
+            <span class="tes__close">+</span>
+        </form>
+    </div>
+</script>
+
 <script>
 ;(function()
 {
-    var tesLang = {
-        title: '{{ popupTitle }}',
-        submit: '{{ buttonTitle }}'
-    };
-
     var comment = '',
-        isForm = false;
+        isForm = false,
+        template = document.getElementById('tes-modal-template').innerHTML;
 
     function getSelection()
     {
@@ -33,35 +49,44 @@
     {
         if( isForm ) return false;
 
-        var container = document.createElement('div'),
-            title = document.createElement('p'),
-            form = document.createElement('form'),
-            text = document.createElement('p'),
-            submit = document.createElement('input'),
-            close = document.createElement('span'),
-            successMessage = document.createElement('p');
+        var text = getSelection(),
+            modal = template.replace('{text}', text),
+            container,
+            form,
+            close,
+            comment,
+            successMessage;
 
-        container.classList.add('tes__container');
-        container.id = 'tes-container';
+        document.body.insertAdjacentHTML('beforeEnd', modal);
 
-        title.classList.add('tes__title');
-        title.innerText = tesLang.title;
+        container = document.getElementById('tes-container');
+        form = container.querySelector('.tes__form');
+        close = container.querySelector('.tes__close');
+        comment = container.querySelector('.tes__comment');
+        successMessage = container.querySelector('.tes__success-message_empty');
 
-        form.classList.add('tes__form');
-        form.action = '';
-        form.method = 'POST';
 
-        [title, text, submit, close].forEach(function(item){ form.appendChild(item); });
+        container.addEventListener('click', function (e)
+            {
+                e.stopPropagation();
+                if (e.target === container) {
+                    container.parentNode.removeChild(container);
+                    isForm = false;
+                }
+            }
+        );
 
-        form.addEventListener('submit', function(e)
+        form.addEventListener('submit', function (e)
             {
                 e.preventDefault();
                 var json = {
-                    url: encodeURIComponent(window.location.href),
-                    text: encodeURIComponent(getSelection()),
-                    comment: encodeURIComponent(comment)
-                },
-                xhr = new XMLHttpRequest();
+                        url: encodeURIComponent(window.location.href),
+                        text: encodeURIComponent(text)
+                    },
+                    xhr = new XMLHttpRequest();
+
+                if (comment.value.length)
+                    json['comment'] = encodeURIComponent(comment.value.trim());
 
                 xhr.open('POST', '/backend/cheerfullab/frontendspelling/spellingrequests/create_ajax', true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -80,9 +105,9 @@
 
                         if (data.status)
                         {
-                            successMessage.classList.add('tes__success-message');
+                            successMessage.classList.remove('tes__success-message_empty');
                             successMessage.innerText = data.message || 'Success';
-                            [text, submit].forEach(function(item){ form.removeChild(item); });
+                            [].slice.call(form.querySelectorAll('.tes__remove-after-success-submit')).forEach(function(item){ form.removeChild(item) });
                             form.appendChild(successMessage);
                         } else
                         {
@@ -93,34 +118,14 @@
             }
         );
 
-        text.classList.add('tes__selected-text');
-        text.innerText = getSelection();
-
-        submit.type = 'submit';
-        submit.classList.add('tes__submit');
-        submit.value = tesLang.submit;
-
-        close.classList.add('tes__close');
-        close.innerText = '+';
-        close.addEventListener('click', function()
+        close.addEventListener('click', function ()
             {
                 container.parentNode.removeChild(container);
                 isForm = false;
             }
         );
-        container.addEventListener('click', function (e)
-            {
-                e.stopPropagation();
-                if( e.target === container )
-                {
-                    container.parentNode.removeChild(container);
-                    isForm = false;
-                }
-            }
-        );
 
-        container.appendChild(form);
-        document.body.appendChild(container);
+        container.classList.remove('tes__container_hidden');
         isForm = true;
     }
 
