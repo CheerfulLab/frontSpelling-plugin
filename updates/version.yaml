@@ -3,3 +3,4 @@
       - Create base backend part
       - create_spelling_requests_table.php
 1.0.3: First working version of frontendspelling
+1.0.4: Refactor js part
