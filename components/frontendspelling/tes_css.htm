@@ -11,6 +11,13 @@
         background: rgba(0,0,0,.75);
         z-index: 99998;
     }
+    .tes__container * {
+        margin: 0;
+        padding: 0;
+    }
+    .tes__container_hidden {
+        display: none;
+    }
     .tes__form {
         position: absolute;
         width: 500px;
@@ -40,6 +47,7 @@
         left: 20px;
         padding: 0;
         margin: 0;
+        line-height: 1;
     }
     .tes__selected-text {
         font-style: italic;
@@ -48,15 +56,30 @@
     }
     .tes__close {
         position: absolute;
-        top: -5px;
+        top: -3px;
         right: 16px;
         cursor: pointer;
         transform: rotate(45deg);
         font-size: 40px;
         color: #589800;
+        line-height: 1;
     }
     .tes__close:hover {
         color: #007F16;
+    }
+    .tes__comment-container {
+        font-size: 12px;
+        display: block;
+        margin: 5px 0 0;
+    }
+    .tes__comment {
+        font-size: 14px;
+        display: block;
+        margin: 0 0 10px;
+        padding: 5px 10px;
+        float: left;
+        width: 80%;
+        line-height: 1;
     }
     .tes__submit {
         float: right;
@@ -68,5 +91,8 @@
     }
     .tes__submit:hover {
         background: #007F16;
+    }
+    .tes__success-message_empty {
+        display: none;
     }
 </style>

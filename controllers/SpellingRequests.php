@@ -25,8 +25,9 @@ class SpellingRequests extends Controller
     public function __construct()
     {
         parent::__construct();
-
-        BackendMenu::setContext('CheerfulLab.Frontendspelling', 'frontendspelling', 'spellingrequests');
+//        BackendMenu::setContext('CheerfulLab.Frontendspelling', 'frontendspelling', 'spellingrequests');
+        BackendMenu::setContext('CheerfulLab.FrontendSpelling', 'spelling', 'requests');
+//        BackendMenu::setContext('RainLab.Blog', 'blog', 'posts');
     }
 
     /**
@@ -62,11 +63,11 @@ class SpellingRequests extends Controller
                 throw new Exception('Wrong method');
             }
             return Response::json(array(
-                'success' => true,
+                'status' => true,
             ));
         } catch (Exception $e) {
             return Response::json(array(
-                'success' => false,
+                'status' => false,
                 'data' => $e->getMessage()
             ));
         }
