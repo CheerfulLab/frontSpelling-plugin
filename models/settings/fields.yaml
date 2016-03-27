@@ -1,0 +1,19 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    spellling_mailer_enabled:
+        tab: cheerfullab.frontendspelling::lang.mailer.tab.label
+        type: switch
+        label: cheerfullab.frontendspelling::lang.mailer.enabled.label
+    spellling_mailer_email:
+        tab: cheerfullab.frontendspelling::lang.mailer.tab.label
+        label: cheerfullab.frontendspelling::lang.mailer.email.label
+        required: true
+        commentAbove: cheerfullab.frontendspelling::lang.mailer.email.comment
+        default: '@'
+        trigger:
+                action: show
+                field: spellling_mailer_enabled
+                condition: checked

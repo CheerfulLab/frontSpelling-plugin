@@ -2,4 +2,5 @@
 1.0.2:
       - Create base backend part
       - create_spelling_requests_table.php
-1.0.3: First working version of frontendspelling
+1.0.3: Refactor js part of plugin
+1.1.0: Enable notification about mistake at email

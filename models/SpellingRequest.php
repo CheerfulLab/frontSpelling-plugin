@@ -2,8 +2,11 @@
 
 use Model;
 
+
 /**
- * SpellingRequest Model
+ * Class SpellingRequest
+ * @package CheerfulLab\Frontendspelling\Models
+ * @property int id
  */
 class SpellingRequest extends Model
 {
