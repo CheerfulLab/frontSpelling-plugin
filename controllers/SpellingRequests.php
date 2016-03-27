@@ -6,6 +6,8 @@ use Response;
 use Backend\Classes\Controller;
 use CheerfulLab\Frontendspelling\Models\SpellingRequest;
 use League\Flysystem\Exception;
+use Mail;
+use CheerfulLab\Frontendspelling\Models\Settings;
 
 /**
  * Spelling Requests Back-end Controller
@@ -25,9 +27,7 @@ class SpellingRequests extends Controller
     public function __construct()
     {
         parent::__construct();
-//        BackendMenu::setContext('CheerfulLab.Frontendspelling', 'frontendspelling', 'spellingrequests');
         BackendMenu::setContext('CheerfulLab.FrontendSpelling', 'spelling', 'requests');
-//        BackendMenu::setContext('RainLab.Blog', 'blog', 'posts');
     }
 
     /**
@@ -45,7 +45,8 @@ class SpellingRequests extends Controller
                 }
                 $url = urldecode($textError['url']);
                 $text = urldecode($textError['text']);
-                $comment = urldecode($textError['comment']);
+
+                $comment = urldecode(isset($textError['comment']) ? $textError['comment'] : '' );
                 if (!$url) {
                     throw new Exception('Not get mandatory parameter url');
                 }
@@ -59,15 +60,25 @@ class SpellingRequests extends Controller
                 $newRequest->text = $text;
                 $newRequest->comment = $comment;
                 $newRequest->save();
+
+                Mail::send('cheerfullab.frontendspelling::mail.notify',
+                    [
+                        'error_form_url' => url('backend/cheerfullab/frontendspelling/spellingrequests/update', [$newRequest->id])
+                    ],
+                function($message) {
+
+                    $message->to(Settings::get('spellling_mailer_email'));
+                    $message->subject(Settings::get('spellling_mailer_subject'));
+                });
             } else {
                 throw new Exception('Wrong method');
             }
             return Response::json(array(
-                'success' => true,
+                'status' => true,
             ));
         } catch (Exception $e) {
             return Response::json(array(
-                'success' => false,
+                'status' => false,
                 'data' => $e->getMessage()
             ));
         }
